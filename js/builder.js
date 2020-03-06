@@ -13,16 +13,28 @@ class Form{
             case 'email':
                 field=new InputEmail(text)
                 break;
-
             case 'button':
                 field=new Button(text)
                 break;
-        
             default:
                 throw new Error('Type not valid '+type)
                 break;
         }
         fields.push(field)
+    }
+    getForm(){
+        let form=document.createElement('form'),
+        field
+
+        for (let i = 0; i < this.fields.length; i++) {
+            let field = this.fields[i];
+            console.log(field)
+            form.appendChild(field.builElement())
+            form.appendChild(document.createElement('br'))
+            
+        }
+        return form
+
     }
 }
 
@@ -57,7 +69,7 @@ class InputEmail extends Inputs{
     }
 }
 
-class button extends Inputs{
+class Button extends Inputs{
     constructor(text){
         super(text)
     }
@@ -75,5 +87,9 @@ const aForm=new Form()
 aForm.addFields('text','Insert your name')
 aForm.addFields('email','insert your email here')
 aForm.addFields('button','Send data')
+
+document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('app').appendChild(aForm.getForm( ))
+})
 
 console.log(aForm)
