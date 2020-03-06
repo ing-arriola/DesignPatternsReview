@@ -51,8 +51,8 @@ class InputEmail extends Inputs{
     }
     builElement(){
         const emailElement=document.createElement('email')
-        inputElement.setAttribute('type','email')
-        inputElement.setAttribute('placeholder',this.text)
+        emailElement.setAttribute('type','email')
+        emailElement.setAttribute('placeholder',this.text)
         return emailElement
     }
 }
@@ -62,16 +62,18 @@ class button extends Inputs{
         super(text)
     }
     builElement(){
-        const buttinElement=document.createElement('input')
-        inputElement.setAttribute('type','text')
-        inputElement.setAttribute('placeholder',this.text)
-        return buttinElement
+        const buttonElement=document.createElement('button')
+        buttonElement.setAttribute('type','submit')
+        buttonElement.textContent=this.text
+        return buttonElement
     }
 }
+
 
 const aForm=new Form()
 
 aForm.addFields('text','Insert your name')
 aForm.addFields('email','insert your email here')
+aForm.addFields('button','Send data')
 
 console.log(aForm)
