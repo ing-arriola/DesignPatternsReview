@@ -1,11 +1,17 @@
+/*This pattern allow us to create differents kinds of objects and is similar to the 
+Factory Desing pattern. At the begining we donn't know what the user needs but 
+as far as the user give us data the DP could build the differents objects specified by
+the user*/
 class Form{
     constructor(){
         this.fields=[]
     }
+    //Builds the field calling to the specific class guven by the user then the builded field is added
+    //To the an array of fields that will be rendered on the HTML 
     addFields(type,text){
         let fields=this.fields
         let field
-
+        //Depending on the field selected by the user the variable field get an input text,email or button
         switch (type) {
             case 'text':
                 field=new InputText(text)
@@ -22,13 +28,11 @@ class Form{
         }
         fields.push(field)
     }
+    //Here the form is builded with the elements selected by the user
     getForm(){
-        let form=document.createElement('form'),
-        field
-
+        let form=document.createElement('form')
         for (let i = 0; i < this.fields.length; i++) {
             let field = this.fields[i];
-            console.log(field)
             form.appendChild(field.builElement())
             form.appendChild(document.createElement('br'))
             
@@ -43,7 +47,7 @@ class Inputs{
         this.text=text
     }
 }
-
+//Returns an input text with the placeholder given by the user
 class InputText extends Inputs{
     constructor(text){
         super(text)
@@ -56,7 +60,7 @@ class InputText extends Inputs{
     }
 }
 
-
+//Returns an email field with the placeholder given by the user
 class InputEmail extends Inputs{
     constructor(text){
         super(text)
@@ -68,7 +72,7 @@ class InputEmail extends Inputs{
         return emailElement
     }
 }
-
+//Returns a button to submit the form with the text given by the user
 class Button extends Inputs{
     constructor(text){
         super(text)
@@ -81,15 +85,13 @@ class Button extends Inputs{
     }
 }
 
-
+//Create a new form
 const aForm=new Form()
-
+//Some fields are added to the form
 aForm.addFields('text','Insert your name')
 aForm.addFields('email','insert your email here')
 aForm.addFields('button','Send data')
-
+//The form is rendered on the HTML when the DOM is loaded by calling to the getForm method
 document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('app').appendChild(aForm.getForm( ))
 })
-
-console.log(aForm)
